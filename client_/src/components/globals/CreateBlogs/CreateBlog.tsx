@@ -3,7 +3,7 @@ import axios from 'axios';
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import MainLayout from "../home/MainLayout";
-import { Loader2, UploadCloud, X, Type, PenTool } from 'lucide-react';
+import { Loader2, UploadCloud, X, Type, PenTool, Sparkles } from 'lucide-react';
 
 function Createpost() {
   const navigate = useNavigate();
@@ -14,6 +14,7 @@ function Createpost() {
   });
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [aiLoading, setAiLoading] = useState(false);
   const [dragActive, setDragActive] = useState(false);
 
   const handlesubmit = async (e:any) => {
@@ -52,6 +53,41 @@ function Createpost() {
       toast.error(errorMessage);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleAiRephrase = async () => {
+    if (!postdata.title || !postdata.content) {
+      toast.error("Please enter both title and content before rephrasing");
+      return;
+    }
+
+    setAiLoading(true);
+    try {
+      const response = await axios.post(
+        "https://blogify-6ym8.onrender.com/api/v1/post/askai",
+        {
+          title: postdata.title,
+          content: postdata.content
+        },
+        {
+          withCredentials: true
+        }
+      );
+
+      if (response.data.success) {
+        setpostdata({
+          ...postdata,
+          title: response.data.title,
+          content: response.data.content
+        });
+        toast.success("Content rephrased successfully!");
+      }
+    } catch (error) {
+      console.error('Error rephrasing with AI:', error);
+      toast.error("Failed to rephrase content with AI");
+    } finally {
+      setAiLoading(false);
     }
   };
 
@@ -162,9 +198,31 @@ function Createpost() {
 
             {/* Title Input */}
             <div>
-              <label htmlFor="title" className="block text-sm font-medium text-purple-800 mb-2">
-                Blog Title
-              </label>
+              <div className="flex justify-between items-center mb-2">
+                <label htmlFor="title" className="block text-sm font-medium text-purple-800">
+                  Blog Title
+                </label>
+                <button
+                  type="button"
+                  onClick={handleAiRephrase}
+                  disabled={aiLoading}
+                  className={`inline-flex items-center px-3 py-1 border border-transparent text-xs font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 ${
+                    aiLoading ? 'opacity-75 cursor-not-allowed' : ''
+                  }`}
+                >
+                  {aiLoading ? (
+                    <>
+                      <Loader2 className="animate-spin -ml-1 mr-2 h-3 w-3" />
+                      Rephrasing...
+                    </>
+                  ) : (
+                    <>
+                      <Sparkles className="w-3 h-3 mr-1" />
+                      AI Rephrase
+                    </>
+                  )}
+                </button>
+              </div>
               <div className="relative rounded-md shadow-sm">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <Type className="h-5 w-5 text-purple-400" />

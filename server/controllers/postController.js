@@ -346,3 +346,82 @@ try {
 
 
 
+import axios from "axios";
+
+const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY || "";
+
+export const askAi = async (req, res) => {
+  try {
+    const { content, title } = req.body;
+
+    if (!content || !title) {
+      return res.status(400).json({ error: "Both title and content are required." });
+    }
+
+    const prompt = `
+You are a professional blog writer.
+
+Your job is to generate a blog post under 300 words based on the topic and user-provided input.
+
+Return the result in the **following format ONLY**:
+Title: <Your blog title>
+Content: <Your blog content in plain text>
+
+DO NOT add anything else — no line breaks like \\n, no tags, no explanation, just this exact format.
+
+Topic: ${title}
+User Input: ${content}
+    `;
+
+    const response = await axios.post(
+      `${GEMINI_API_URL}?key=${GEMINI_API_KEY}`,
+      {
+        contents: [
+          {
+            parts: [
+              {
+                text: prompt.trim(),
+              },
+            ],
+          },
+        ],
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const rawText = response.data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+
+    if (!rawText) {
+      return res.status(500).json({ error: "Empty response from AI" });
+    }
+
+    // Regex to extract title and content
+    const titleMatch = rawText.match(/Title:\s*(.*?)(?=\s*Content:)/i);
+    const contentMatch = rawText.match(/Content:\s*(.*)/i);
+
+    const extractedTitle = titleMatch?.[1]?.trim();
+    const extractedContent = contentMatch?.[1]?.trim();
+
+    if (!extractedTitle || !extractedContent) {
+      console.error("Unexpected AI Response:", rawText);
+      return res.status(500).json({ error: "Invalid response format from AI." });
+    }
+
+    return res.status(200).json({
+      success: true,
+      title: extractedTitle,
+      content: extractedContent,
+    });
+
+  } catch (error) {
+    console.error("Gemini API Error:", error.response?.data || error.message);
+    return res.status(error.response?.status || 500).json({
+      error: error.response?.data?.error?.message || "Internal Server Error",
+    });
+  }
+};
