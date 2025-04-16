@@ -7,6 +7,7 @@ import HeroSection from './HeroSection';
 import FeaturedPost from './FeaturedPost';
 
 import { useSelector } from 'react-redux';
+import useGetPost from '@/hooks/usepost';
 
 // Mock data
 const featuredPost = {
@@ -27,6 +28,7 @@ const featuredPost = {
 const LandingPage = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const {authUser}=useSelector((store:any)=>store.user);
+  useGetPost();
   useEffect(() => {
     setIsLoaded(true);
   }, []);
