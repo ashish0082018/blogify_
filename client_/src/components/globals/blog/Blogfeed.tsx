@@ -13,14 +13,14 @@ import { useSelector } from 'react-redux';
 const BlogFeedPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
   useGetPost();
-  const {allPost}=useSelector((state:any)=>state.post);
+  const { allPost = [] } = useSelector((state: any) => state.post);
 
   console.log(allPost);
   
   
-  // Filter blogs based on search query (case insensitive)
-  const filteredBlogs = allPost.filter((blog :any) => 
-    blog.title.toLowerCase().includes(searchQuery.toLowerCase())
+  // Safe filtering with null checks
+  const filteredBlogs = allPost.filter((blog: any) => 
+    blog?.title?.toLowerCase().includes(searchQuery.toLowerCase() ?? "")
   );
 
   const handleSearch = (e: React.FormEvent) => {
