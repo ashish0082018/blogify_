@@ -40,7 +40,7 @@ const CommentSection = ({ postId, isSignedIn, currentUser }: CommentSectionProps
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/v1/post/comment/${postId}`);
+        const response = await axios.get(`https://blogify-6ym8.onrender.com/api/v1/post/comment/${postId}`);
         if (response.data.success) {
           setComments(response.data.comments);
         }
@@ -83,7 +83,7 @@ const CommentSection = ({ postId, isSignedIn, currentUser }: CommentSectionProps
 
       // Post the comment to the server
       const response = await axios.post(
-        `http://localhost:3000/api/v1/user/comment/${postId}`,
+        `https://blogify-6ym8.onrender.com/api/v1/user/comment/${postId}`,
         { content: commentText },
         { withCredentials: true }
       );
@@ -118,7 +118,7 @@ const CommentSection = ({ postId, isSignedIn, currentUser }: CommentSectionProps
       setComments(prev => prev.filter(comment => comment.id !== id));
       
       const response = await axios.post(
-        `http://localhost:3000/api/v1/post/deletecomment`,
+        `https://blogify-6ym8.onrender.com/api/v1/post/deletecomment`,
         { commentId: id },
         { withCredentials: true }
       );
@@ -130,7 +130,7 @@ const CommentSection = ({ postId, isSignedIn, currentUser }: CommentSectionProps
     } catch (error) {
       console.error("Error deleting comment:", error);
       // Revert the optimistic update if there was an error
-      const response = await axios.get(`http://localhost:3000/api/v1/post/comment/${postId}`);
+      const response = await axios.get(`https://blogify-6ym8.onrender.com/api/v1/post/comment/${postId}`);
       if (response.data.success) {
         setComments(response.data.comments);
       }

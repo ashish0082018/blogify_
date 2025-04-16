@@ -26,7 +26,7 @@ const ProfilePage = () => {
     const fetchUserDetails = async () => {
       try {
         const response = await axios.get(
-          'http://localhost:3000/api/v1/user/userdetails',
+          'https://blogify-6ym8.onrender.com/api/v1/user/userdetails',
           { withCredentials: true }
         );
         
@@ -50,7 +50,7 @@ const ProfilePage = () => {
   const handleBioUpdate = async () => {
     try {
       const response = await axios.post(
-        'http://localhost:3000/api/v1/user/setbio',
+        'https://blogify-6ym8.onrender.com/api/v1/user/setbio',
         { bio: tempBio },
         { withCredentials: true }
       );
@@ -73,7 +73,7 @@ const ProfilePage = () => {
     setIsProcessing(true);
     try {
       const response = await axios.delete(
-        `http://localhost:3000/api/v1/post/deletepost/${postToDelete}`,
+        `https://blogify-6ym8.onrender.com/api/v1/post/deletepost/${postToDelete}`,
         { withCredentials: true }
       );
 
@@ -101,7 +101,7 @@ const ProfilePage = () => {
     
     try {
       const response = await axios.post(
-        'http://localhost:3000/api/v1/post/setprivate',
+        'https://blogify-6ym8.onrender.com/api/v1/post/setprivate',
         { id: postId, previous: currentPrivacy },
         { withCredentials: true }
       );

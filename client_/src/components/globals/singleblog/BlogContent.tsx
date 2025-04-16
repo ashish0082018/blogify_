@@ -40,7 +40,7 @@ const BlogContent = ({ content, likesCount, isSignedIn, postId }: BlogContentPro
       setHasLiked(newLikeStatus);
       
       await axios.get(
-        `http://localhost:3000/api/v1/post/likepost/${postId}`,
+        `https://blogify-6ym8.onrender.com/api/v1/post/likepost/${postId}`,
         
         { withCredentials: true }
       );
@@ -62,7 +62,7 @@ const BlogContent = ({ content, likesCount, isSignedIn, postId }: BlogContentPro
   const fetchLikedUsers = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/v1/post/likes/${postId}`,
+        `https://blogify-6ym8.onrender.com/api/v1/post/likes/${postId}`,
         { withCredentials: true }
       );
       if (response.data.success) {

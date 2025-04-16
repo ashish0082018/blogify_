@@ -12,7 +12,7 @@ const PORT=process.env.PORT || 8000;
 const __dirname=path.resolve(); 
 
 app.use(cors({
-    origin:"http://localhost:5173",
+    origin:"https://blogify-6ym8.onrender.com",
     credentials:true,
 }))
 

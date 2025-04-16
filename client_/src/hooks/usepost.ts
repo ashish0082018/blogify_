@@ -9,7 +9,7 @@ const useGetPost = () => {
     useEffect(() => {
         const fetchpost = async () => {
             try {
-                const response = await axios.get("http://localhost:3000/api/v1/post/allposts");
+                const response = await axios.get("https://blogify-6ym8.onrender.com/api/v1/post/allposts");
                 if (response.data.success) {
                     dispatch(setallPost(response.data.allpost));
                 }

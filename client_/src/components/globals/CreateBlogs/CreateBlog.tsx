@@ -33,7 +33,7 @@ function Createpost() {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/v1/post/createpost", 
+        "https://blogify-6ym8.onrender.com/api/v1/post/createpost", 
         formData, 
         {
           headers: { 'Content-Type': 'multipart/form-data' },

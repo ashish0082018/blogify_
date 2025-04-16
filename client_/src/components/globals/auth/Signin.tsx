@@ -22,7 +22,7 @@ const SignInForm = () => {
 
     try {
       setLoading(true);
-      const response = await axios.post('http://localhost:3000/api/v1/user/login', {
+      const response = await axios.post('https://blogify-6ym8.onrender.com/api/v1/user/login', {
         email,
         password,
       }, {

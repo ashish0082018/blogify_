@@ -21,7 +21,7 @@ const Header = () => {
   
   const Handlelogout =async () => {
     try {
-      const response= await axios.get("http://localhost:3000/api/v1/user/logout",{withCredentials:true})
+      const response= await axios.get("https://blogify-6ym8.onrender.com/api/v1/user/logout",{withCredentials:true})
       if(response.data.success){
         dispatch(setAuthUser(null))
         toast("See you next time... 👋" )
