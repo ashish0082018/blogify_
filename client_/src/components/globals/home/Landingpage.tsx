@@ -7,7 +7,7 @@ import HeroSection from './HeroSection';
 import FeaturedPost from './FeaturedPost';
 
 import { useSelector } from 'react-redux';
-import useGetPost from '@/hooks/usepost';
+
 
 // Mock data
 const featuredPost = {
