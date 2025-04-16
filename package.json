@@ -4,12 +4,12 @@
   "description": "",
   "main": "index.js",
   "type": "module",
-"scripts": {
-  "dev": "nodemon server/index.js",
-  "build": "npm install && npm install --prefix client_ && npm run build --prefix client_",
-  "start": "nodemon server/index.js",
-  "postinstall": "npm install prisma && prisma generate"
-},
+  "scripts": {
+    "dev": "nodemon server/index.js",
+    "build": "npm install && npm install --prefix client_ && npm run build --prefix client_",
+    "start": "node server/index.js",
+    "postinstall": "prisma generate --schema=server/prisma/schema.prisma"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
