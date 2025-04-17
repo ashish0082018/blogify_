@@ -55,7 +55,7 @@ useEffect(() => {
   
   return (
     <MainLayout>
-      <article className="container-blog py-16">
+      <article className="container-blog py-16 px-8">
         <header className="mb-8 max-w-3xl mx-auto text-center">
           
           <h1 className="font-heading font-bold text-3xl md:text-4xl lg:text-5xl mb-6">

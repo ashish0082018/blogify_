@@ -184,7 +184,7 @@ const Header = () => {
                   <Button variant="outline" className="w-full">Sign In</Button>
                 </Link>
                 <Link to="/register" onClick={() => setIsMenuOpen(false)}>
-                  <Button className="w-full bg-gradient-to-r from-primary to-blue-600">
+                  <Button className="w-full bg-gradient-to-r from-primary to-purple-600">
                     Get Started
                   </Button>
                 </Link>

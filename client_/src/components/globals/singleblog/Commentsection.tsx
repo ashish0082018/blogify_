@@ -104,7 +104,7 @@ const CommentSection = ({ postId, isSignedIn, currentUser }: CommentSectionProps
       }
     } catch (error) {
       console.error("Error submitting comment:", error);
-      toast.error('Failed to post comment');
+      toast.error('Write comment in the less than 200 words');
       // Remove the optimistic comment if there was an error
       setComments(prev => prev.filter(c => !c.id.startsWith('temp-')));
     } finally {

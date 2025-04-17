@@ -140,6 +140,7 @@ const LandingPage = () => {
       </Button>
     </Link>
 }
+
       <p className="mt-4 text-gray-600">
         Join 50,000+ creators already growing with Blogify
       </p>
