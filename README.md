@@ -1,4 +1,4 @@
-# 📝 BlogVerse — Full-Stack Blog Platform with AI-Enhanced Publishing
+# 📝 Blogify — Full-Stack Blog Platform with AI-Enhanced Publishing
 
 **Blogify** is a feature-rich, full-stack blog platform built for seamless writing, reading, liking, and commenting. It blends traditional blog functionality with modern tools like AI rephrasing and a powerful backend API — perfect for creators, writers, and developers.
 
